@@ -1,88 +1,62 @@
-class SearchWeather {
-  Coord? coord;
-  List<Weather>? weather;
+import 'package:flutter_app_weather16032024/data/api/dto/clouds_dto.dart';
+import 'package:flutter_app_weather16032024/data/api/dto/coord_dto.dart';
+import 'package:flutter_app_weather16032024/data/api/dto/main_dto.dart';
+import 'package:flutter_app_weather16032024/data/api/dto/rain_dto.dart';
+import 'package:flutter_app_weather16032024/data/api/dto/sys_dto.dart';
+import 'package:flutter_app_weather16032024/data/api/dto/weather_dto.dart';
+import 'package:flutter_app_weather16032024/data/api/dto/wind_dto.dart';
+
+class SearchWeatherDto {
+  CoordDto? coordDto;
+  List<WeatherDto>? weatherDto;
   String? base;
-  Main? main;
+  MainDto? mainDto;
   int? visibility;
-  Wind? wind;
-  Rain? rain;
-  Clouds? clouds;
+  WindDto? windDto;
+  RainDto? rainDto;
+  CloudsDto? cloudsDto;
   int? dt;
-  Sys? sys;
+  SysDto? sysDto;
   int? timezone;
   int? id;
   String? name;
   int? cod;
 
-  SearchWeather(
-      {this.coord,
-        this.weather,
-        this.base,
-        this.main,
-        this.visibility,
-        this.wind,
-        this.rain,
-        this.clouds,
-        this.dt,
-        this.sys,
-        this.timezone,
-        this.id,
-        this.name,
-        this.cod});
+  SearchWeatherDto(
+      {this.coordDto,
+      this.weatherDto,
+      this.base,
+      this.mainDto,
+      this.visibility,
+      this.windDto,
+      this.rainDto,
+      this.cloudsDto,
+      this.dt,
+      this.sysDto,
+      this.timezone,
+      this.id,
+      this.name,
+      this.cod});
 
-  SearchWeather.fromJson(Map<String, dynamic> json) {
-    coord = json['coord'] != null ? new Coord.fromJson(json['coord']) : null;
+  SearchWeatherDto.fromJson(Map<String, dynamic> json) {
+    coordDto = json['coord'] != null ? CoordDto.fromJson(json['coord']) : null;
     if (json['weather'] != null) {
-      weather = <Weather>[];
+      weatherDto = <WeatherDto>[];
       json['weather'].forEach((v) {
-        weather!.add(new Weather.fromJson(v));
+        weatherDto!.add(WeatherDto.fromJson(v));
       });
     }
     base = json['base'];
-    main = json['main'] != null ? new Main.fromJson(json['main']) : null;
+    mainDto = json['main'] != null ? MainDto.fromJson(json['main']) : null;
     visibility = json['visibility'];
-    wind = json['wind'] != null ? new Wind.fromJson(json['wind']) : null;
-    rain = json['rain'] != null ? new Rain.fromJson(json['rain']) : null;
-    clouds =
-    json['clouds'] != null ? new Clouds.fromJson(json['clouds']) : null;
+    windDto = json['wind'] != null ? WindDto.fromJson(json['wind']) : null;
+    rainDto = json['rain'] != null ? RainDto.fromJson(json['rain']) : null;
+    cloudsDto = json['clouds'] != null ? CloudsDto.fromJson(json['clouds']) : null;
     dt = json['dt'];
-    sys = json['sys'] != null ? new Sys.fromJson(json['sys']) : null;
+    sysDto = json['sys'] != null ? SysDto.fromJson(json['sys']) : null;
     timezone = json['timezone'];
     id = json['id'];
     name = json['name'];
     cod = json['cod'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.coord != null) {
-      data['coord'] = this.coord!.toJson();
-    }
-    if (this.weather != null) {
-      data['weather'] = this.weather!.map((v) => v.toJson()).toList();
-    }
-    data['base'] = this.base;
-    if (this.main != null) {
-      data['main'] = this.main!.toJson();
-    }
-    data['visibility'] = this.visibility;
-    if (this.wind != null) {
-      data['wind'] = this.wind!.toJson();
-    }
-    if (this.rain != null) {
-      data['rain'] = this.rain!.toJson();
-    }
-    if (this.clouds != null) {
-      data['clouds'] = this.clouds!.toJson();
-    }
-    data['dt'] = this.dt;
-    if (this.sys != null) {
-      data['sys'] = this.sys!.toJson();
-    }
-    data['timezone'] = this.timezone;
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['cod'] = this.cod;
-    return data;
   }
 }
