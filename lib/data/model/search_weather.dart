@@ -1,4 +1,6 @@
-class SearchWeather {
+import 'package:equatable/equatable.dart';
+
+class SearchWeather extends Equatable{
   String name = "";
   num temp = 0;
   num minTemp = 0;
@@ -12,4 +14,8 @@ class SearchWeather {
     required this.maxTemp,
     required this.status
   });
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [name, temp, minTemp, maxTemp, status];
 }
