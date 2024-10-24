@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
 import 'package:flutter_app_weather16032024/common/base_bloc.dart';
 import 'package:flutter_app_weather16032024/common/base_event.dart';
 import 'package:flutter_app_weather16032024/data/api/dto/search_weather_dto.dart';
@@ -9,6 +12,8 @@ import 'package:flutter_app_weather16032024/utility/ConverterUtil.dart';
 class SearchWeatherBloc extends BaseBloc {
   final WeatherRepository _repository = WeatherRepository();
 
+  StreamController<SearchWeather> _searchWeatherController = StreamController();
+
   @override
   void dispatch(BaseEvent event) {
     switch (event.runtimeType) {
@@ -19,15 +24,15 @@ class SearchWeatherBloc extends BaseBloc {
   }
 
   void searchWeatherByCityName(SearchWeatherEvent event) {
-    _repository
-        .requestWeatherByCityName(event.cityName)
+    _repository.requestWeatherByCityName(event.cityName)
         .then((response) {
           if (response.statusCode == 200) {
             SearchWeatherDto searchWeatherDto = SearchWeatherDto.fromJson(response.data);
             SearchWeather searchWeather = ConverterUtil.convertSearchWeather(searchWeatherDto);
-            print(searchWeather.toString());
+            _searchWeatherController.sink.add(searchWeather);
           }
-        })
-        .catchError((error) => print(error));
+        }).catchError((error) {
+          _searchWeatherController.sink.addError(error.response?.data["message"] ?? error.toString());
+        });
   }
 }

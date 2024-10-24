@@ -30,7 +30,7 @@ class _HomePageStateWidget extends State<HomePageWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _bloc = Provider.of(context);
-    _bloc?.searchWeatherByCityName(SearchWeatherEvent(cityName: "Hanoi"));
+    _bloc?.searchWeatherByCityName(SearchWeatherEvent(cityName: "Hano11312312i"));
   }
 
   @override
